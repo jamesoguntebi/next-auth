@@ -1,6 +1,6 @@
 import adapters from "../adapters"
 import jwt from "../lib/jwt"
-import parseUrl from "../lib/parse-url"
+import parseUrl, {absoluteUrl} from "../lib/parse-url"
 import logger, { setLogger } from "../lib/logger"
 import * as cookie from "./lib/cookie"
 import * as defaultEvents from "./lib/default-events"
@@ -60,7 +60,8 @@ async function NextAuthHandler(req, res, userOptions) {
 
     // @todo refactor all existing references to baseUrl and basePath
     const { basePath, baseUrl } = parseUrl(
-      process.env.NEXTAUTH_URL || process.env.VERCEL_URL
+      // process.env.NEXTAUTH_URL || process.env.VERCEL_URL
+      process.env.NEXTAUTH_URL || absoluteUrl(req).origin || process.env.VERCEL_URL
     )
 
     const cookies = {

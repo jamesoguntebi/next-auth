@@ -18,6 +18,10 @@ import {
 import _logger, { proxyLogger } from "../lib/logger"
 import parseUrl from "../lib/parse-url"
 
+function _getNextAuthUrl() {
+  return process.env.NEXTAUTH_URL || location.origin;
+}
+
 // This behaviour mirrors the default behaviour for getting the site name that
 // happens server side in server/index.js
 // 1. An empty value is legitimate when the code is being invoked client side as
@@ -26,15 +30,15 @@ import parseUrl from "../lib/parse-url"
 //    variable and defaults to 'http://localhost:3000'.
 /** @type {import("types/internals/client").NextAuthConfig} */
 const __NEXTAUTH = {
-  baseUrl: parseUrl(process.env.NEXTAUTH_URL || process.env.VERCEL_URL).baseUrl,
-  basePath: parseUrl(process.env.NEXTAUTH_URL).basePath,
+  baseUrl: parseUrl(_getNextAuthUrl() || process.env.VERCEL_URL).baseUrl,
+  basePath: parseUrl(_getNextAuthUrl()).basePath,
   baseUrlServer: parseUrl(
     process.env.NEXTAUTH_URL_INTERNAL ||
-      process.env.NEXTAUTH_URL ||
+      _getNextAuthUrl() ||
       process.env.VERCEL_URL
   ).baseUrl,
   basePathServer: parseUrl(
-    process.env.NEXTAUTH_URL_INTERNAL || process.env.NEXTAUTH_URL
+    process.env.NEXTAUTH_URL_INTERNAL || _getNextAuthUrl()
   ).basePath,
   keepAlive: 0,
   clientMaxAge: 0,
@@ -331,7 +335,7 @@ async function _fetchData(path, { ctx, req = ctx?.req } = {}) {
 function _apiBaseUrl() {
   if (typeof window === "undefined") {
     // NEXTAUTH_URL should always be set explicitly to support server side calls - log warning if not set
-    if (!process.env.NEXTAUTH_URL) {
+    if (!_getNextAuthUrl()) {
       logger.warn("NEXTAUTH_URL", "NEXTAUTH_URL environment variable not set")
     }
 

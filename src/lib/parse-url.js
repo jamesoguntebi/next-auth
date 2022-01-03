@@ -25,3 +25,19 @@ export default function parseUrl (url) {
 
   return { baseUrl, basePath }
 }
+
+export const absoluteUrl = (req) => {
+  var protocol = "https:"
+  var host = req
+    ? req.headers["x-forwarded-host"] || req.headers["host"]
+    : window.location.host
+
+  if (host.indexOf("localhost") > -1 || host.indexOf(".local") > -1) {
+    protocol = "http:"
+  }
+  return {
+    protocol: protocol,
+    host: host,
+    origin: protocol + "//" + host,
+  }
+}
