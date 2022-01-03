@@ -19,7 +19,7 @@ node_modules
 # Build dirs
 .next
 /build
-/dist
+# /dist
 /www/build
 
 # Generated files
