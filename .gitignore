@@ -28,18 +28,18 @@ node_modules
 www/providers.json
 src/providers/index.js
 /internals
-/adapters.d.ts
-/adapters.js
-/client.d.ts
-/client.js
-/index.d.ts
-/index.js
-/jwt.d.ts
-/jwt.js
-/providers.d.ts
-/providers.js
-/errors.js
-/errors.d.ts
+# /adapters.d.ts
+# /adapters.js
+# /client.d.ts
+# /client.js
+# /index.d.ts
+# /index.js
+# /jwt.d.ts
+# /jwt.js
+# /providers.d.ts
+# /providers.js
+# /errors.js
+# /errors.d.ts
 
 # Development app
 app/next-auth
