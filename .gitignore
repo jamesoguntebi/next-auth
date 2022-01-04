@@ -27,7 +27,7 @@ node_modules
 .cache-loader
 www/providers.json
 src/providers/index.js
-/internals
+# /internals
 # /adapters.d.ts
 # /adapters.js
 # /client.d.ts
