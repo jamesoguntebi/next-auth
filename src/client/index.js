@@ -19,7 +19,7 @@ import _logger, { proxyLogger } from "../lib/logger"
 import parseUrl from "../lib/parse-url"
 
 function _getNextAuthUrl() {
-  return process.env.NEXTAUTH_URL || location.origin;
+  return process.env.NEXTAUTH_URL || window?.location?.origin;
 }
 
 // This behaviour mirrors the default behaviour for getting the site name that
@@ -335,7 +335,7 @@ async function _fetchData(path, { ctx, req = ctx?.req } = {}) {
 function _apiBaseUrl() {
   if (typeof window === "undefined") {
     // NEXTAUTH_URL should always be set explicitly to support server side calls - log warning if not set
-    if (!_getNextAuthUrl()) {
+    if (!process.env.NEXTAUTH_URL) {
       logger.warn("NEXTAUTH_URL", "NEXTAUTH_URL environment variable not set")
     }
 
