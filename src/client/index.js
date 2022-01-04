@@ -19,7 +19,8 @@ import _logger, { proxyLogger } from "../lib/logger"
 import parseUrl from "../lib/parse-url"
 
 function _getNextAuthUrl() {
-  return process.env.NEXTAUTH_URL || window?.location?.origin;
+  return process.env.NEXTAUTH_URL ||
+      (typeof window !== "undefined" ? window.location.origin : undefined);
 }
 
 // This behaviour mirrors the default behaviour for getting the site name that
